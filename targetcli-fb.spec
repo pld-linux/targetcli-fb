@@ -6,6 +6,7 @@ License:	Apache v2.0
 Group:		Applications/System
 URL:		https://github.com/agrover/targetcli-fb
 Source0:	https://codeload.github.com/agrover/targetcli-fb/tar.gz/v%{version}
+# Source0-md5:	758f89dbc40ba54e7f9f901677031fa0
 Requires:	python-configshell-fb
 Requires:	python-rtslib-fb
 BuildArch:	noarch
