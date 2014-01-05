@@ -75,6 +75,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/targetcli.8*
 %attr(750,root,root) %dir /etc/target
 %attr(750,root,root) %dir /etc/target/backup
-%attr(640,root,root) /etc/target/saveconfig.json
+%config(noreplace) %verify(not md5 mtime size) %attr(640,root,root) /etc/target/saveconfig.json
 %attr(754,root,root) /etc/rc.d/init.d/targetcli
 %{systemdunitdir}/targetcli.service
