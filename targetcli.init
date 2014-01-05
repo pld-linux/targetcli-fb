@@ -103,6 +103,8 @@ case "$1" in
   status)
 	if [ -f /var/lock/subsys/targetcli ]; then
 		nls "%s was started" "targetcli"
+		echo "Sessions:"
+		targetcli sessions
 		RETVAL=0
 	else
 		nls "%s is stopped" "targetcli"
