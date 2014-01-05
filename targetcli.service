@@ -1,0 +1,14 @@
+[Unit]
+Description=Restore iSCSI target kernel configuration
+Requires=sys-kernel-config.mount
+After=sys-kernel-config.mount network.target local-fs.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/targetcli restoreconfig clear_existing=true
+ExecStop=/usr/bin/targetcli clearconfig confirm=true
+SyslogIdentifier=targetcli
+
+[Install]
+WantedBy=multi-user.target

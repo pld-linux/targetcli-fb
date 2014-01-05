@@ -7,8 +7,13 @@ Group:		Applications/System
 URL:		https://github.com/agrover/targetcli-fb
 Source0:	https://codeload.github.com/agrover/targetcli-fb/tar.gz/v%{version}
 # Source0-md5:	758f89dbc40ba54e7f9f901677031fa0
+Source1:	targetcli.service
+Source2:	targetcli.init
+BuildRequires:	rpmbuild(macros) >= 1.647
 Requires:	python-configshell-fb
 Requires:	python-rtslib-fb
+Requires(post,preun,postun):	systemd-units >= 38
+Requires:	systemd-units >= 38
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -24,7 +29,8 @@ generic SCSI target, present in 3.x Linux kernel versions.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_mandir}/man8,/etc/target/backup}
+install -d $RPM_BUILD_ROOT{%{_mandir}/man8,/etc/target/backup} \
+	$RPM_BUILD_ROOT{%{systemdunitdir},/etc/rc.d/init.d}
 
 %{__python} setup.py \
 	install --skip-build \
@@ -35,8 +41,26 @@ install -d $RPM_BUILD_ROOT{%{_mandir}/man8,/etc/target/backup}
 
 install targetcli.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 
+install %{SOURCE1} $RPM_BUILD_ROOT%{systemdunitdir}/targetcli.service
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/targetcli
+
 # empty JSON file
 echo "{}" > $RPM_BUILD_ROOT/etc/target/saveconfig.json
+
+%post
+/sbin/chkconfig --add targetcli
+%service targetcli restart
+%systemd_post .service
+
+%preun
+if [ "$1" = "0" ]; then
+	%service -q targetcli stop
+	/sbin/chkconfig --del targetcli
+fi
+%systemd_preun targetcli.service
+
+%postun
+%systemd_reload
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -52,3 +76,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(750,root,root) %dir /etc/target
 %attr(750,root,root) %dir /etc/target/backup
 %attr(640,root,root) /etc/target/saveconfig.json
+%attr(754,root,root) /etc/rc.d/init.d/targetcli
+%{systemdunitdir}/targetcli.service
