@@ -13,7 +13,7 @@ BuildRequires:	rpmbuild(macros) >= 1.647
 Requires:	python-configshell-fb
 Requires:	python-rtslib-fb
 Requires(post,preun,postun):	systemd-units >= 38
-Requires:	systemd-units >= 38
+Requires:	systemd-units >= 208-8
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
