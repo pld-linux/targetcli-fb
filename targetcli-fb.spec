@@ -1,12 +1,12 @@
 Summary:	Command shell for managing Linux LIO kernel target
 Name:		targetcli-fb
-Version:	2.1.fb33
+Version:	2.1.fb37
 Release:	1
 License:	Apache v2.0
 Group:		Applications/System
 URL:		https://github.com/agrover/targetcli-fb
 Source0:	https://codeload.github.com/agrover/targetcli-fb/tar.gz/v%{version}
-# Source0-md5:	758f89dbc40ba54e7f9f901677031fa0
+# Source0-md5:	c9e856d0b434650aa82f0271f1e21f6c
 Source1:	targetcli.service
 Source2:	targetcli.init
 BuildRequires:	rpmbuild(macros) >= 1.647
