@@ -1,12 +1,12 @@
 Summary:	Command shell for managing Linux LIO kernel target
 Name:		targetcli-fb
-Version:	2.1.fb37
+Version:	2.1.fb49
 Release:	1
 License:	Apache v2.0
 Group:		Applications/System
 URL:		https://github.com/agrover/targetcli-fb
 Source0:	https://codeload.github.com/agrover/targetcli-fb/tar.gz/v%{version}
-# Source0-md5:	c9e856d0b434650aa82f0271f1e21f6c
+# Source0-md5:	416eeda8f7ddeb7f00fe98dc1a6245b3
 Source1:	targetcli.service
 Source2:	targetcli.init
 BuildRequires:	rpmbuild(macros) >= 1.647
@@ -25,18 +25,14 @@ generic SCSI target, present in 3.x Linux kernel versions.
 %setup -q
 
 %build
-%{__python} setup.py build
+%py_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_mandir}/man8,/etc/target/backup} \
 	$RPM_BUILD_ROOT{%{systemdunitdir},/etc/rc.d/init.d}
 
-%{__python} setup.py \
-	install --skip-build \
-	--root=$RPM_BUILD_ROOT \
-	--optimize=2
-
+%py_install
 %py_postclean
 
 install targetcli.8 $RPM_BUILD_ROOT%{_mandir}/man8/
