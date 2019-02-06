@@ -1,7 +1,7 @@
 Summary:	Command shell for managing Linux LIO kernel target
 Name:		targetcli-fb
 Version:	2.1.fb49
-Release:	1
+Release:	2
 License:	Apache v2.0
 Group:		Applications/System
 Source0:	https://codeload.github.com/open-iscsi/targetcli-fb/tar.gz/v%{version}
