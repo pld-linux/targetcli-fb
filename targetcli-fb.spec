@@ -4,11 +4,11 @@ Version:	2.1.fb49
 Release:	1
 License:	Apache v2.0
 Group:		Applications/System
-URL:		https://github.com/agrover/targetcli-fb
-Source0:	https://codeload.github.com/agrover/targetcli-fb/tar.gz/v%{version}
+Source0:	https://codeload.github.com/open-iscsi/targetcli-fb/tar.gz/v%{version}
 # Source0-md5:	416eeda8f7ddeb7f00fe98dc1a6245b3
 Source1:	targetcli.service
 Source2:	targetcli.init
+URL:		https://github.com/open-iscsi/targetcli-fb
 BuildRequires:	rpmbuild(macros) >= 1.647
 Requires:	python-configshell-fb
 Requires:	python-rtslib-fb >= 2.1.fb63
