@@ -11,7 +11,8 @@ Source1:	targetcli.service
 Source2:	targetcli.init
 BuildRequires:	rpmbuild(macros) >= 1.647
 Requires:	python-configshell-fb
-Requires:	python-rtslib-fb
+Requires:	python-rtslib-fb >= 2.1.fb63
+Requires:	python-pygobject3
 Requires(post,preun,postun):	systemd-units >= 38
 Requires:	systemd-units >= 208-8
 BuildArch:	noarch
