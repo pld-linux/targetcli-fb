@@ -20,6 +20,8 @@ but the rtslib_fb was not updated to handle it.
 
 For now we just revert to previous way of calling delete (no arguments).
 
+ref: https://bugzilla.redhat.com/show_bug.cgi?id=1659195
+
 --- targetcli-fb-2.1.fb49/targetcli/ui_backstore.py~	2018-09-05 14:08:11.000000000 +0200
 +++ targetcli-fb-2.1.fb49/targetcli/ui_backstore.py	2019-02-07 08:19:44.277352926 +0100
 @@ -306,7 +306,8 @@
