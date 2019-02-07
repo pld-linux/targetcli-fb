@@ -1,13 +1,14 @@
 Summary:	Command shell for managing Linux LIO kernel target
 Name:		targetcli-fb
 Version:	2.1.fb49
-Release:	2
+Release:	3
 License:	Apache v2.0
 Group:		Applications/System
 Source0:	https://codeload.github.com/open-iscsi/targetcli-fb/tar.gz/v%{version}
 # Source0-md5:	416eeda8f7ddeb7f00fe98dc1a6245b3
 Source1:	targetcli.service
 Source2:	targetcli.init
+Patch0:		%{name}-no-save-flag.patch
 URL:		https://github.com/open-iscsi/targetcli-fb
 BuildRequires:	rpmbuild(macros) >= 1.647
 Requires:	python-configshell-fb
@@ -24,6 +25,7 @@ generic SCSI target, present in 3.x Linux kernel versions.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %py_build

@@ -1,0 +1,34 @@
+fix crash whem removing backstore:
+/> /backstores/fileio/ delete adamg250g_iscsi
+
+Traceback (most recent call last):
+  File "/usr/bin/targetcli", line 122, in <module>
+    main()
+  File "/usr/bin/targetcli", line 112, in main
+    shell.run_interactive()
+  File "/usr/share/python2.7/site-packages/configshell_fb/shell.py", line 905, in run_interactive
+  File "/usr/share/python2.7/site-packages/configshell_fb/shell.py", line 734, in _cli_loop
+  File "/usr/share/python2.7/site-packages/configshell_fb/shell.py", line 848, in run_cmdline
+  File "/usr/share/python2.7/site-packages/configshell_fb/shell.py", line 823, in _execute_command
+  File "/usr/share/python2.7/site-packages/configshell_fb/node.py", line 1406, in execute_command
+  File "/usr/share/python2.7/site-packages/targetcli/ui_backstore.py", line 309, in ui_command_delete
+TypeError: delete() got an unexpected keyword argument 'save'
+
+
+this is introduced in bca03ea (saveconfig: way for block-level save with delete command),
+but the rtslib_fb was not updated to handle it.
+
+For now we just revert to previous way of calling delete (no arguments).
+
+--- targetcli-fb-2.1.fb49/targetcli/ui_backstore.py~	2018-09-05 14:08:11.000000000 +0200
++++ targetcli-fb-2.1.fb49/targetcli/ui_backstore.py	2019-02-07 08:19:44.277352926 +0100
+@@ -306,7 +306,8 @@
+             rn = self.get_root()
+             rn._save_backups(default_save_file)
+ 
+-        child.rtsnode.delete(save=save)
++        # child.rtsnode.delete(save=save)
++        child.rtsnode.delete()
+         self.remove_child(child)
+         self.shell.log.info("Deleted storage object %s." % name)
+ 
